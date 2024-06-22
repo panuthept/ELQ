@@ -20,10 +20,10 @@ from pytorch_transformers.modeling_bert import (
 
 from pytorch_transformers.tokenization_bert import BertTokenizer
 
-from elq.common.ranker_base import BertEncoder, get_model_obj
-from blink.common.optimizer import get_bert_optimizer
-from elq.biencoder.allennlp_span_utils import batched_span_select, batched_index_select
-from elq.biencoder.utils import batch_reshape_mask_left
+from okean.packages.elq_package.common.ranker_base import BertEncoder, get_model_obj
+# from blink.common.optimizer import get_bert_optimizer
+from okean.packages.elq_package.biencoder.allennlp_span_utils import batched_span_select, batched_index_select
+from okean.packages.elq_package.biencoder.utils import batch_reshape_mask_left
 
 
 def load_biencoder(params):
@@ -598,13 +598,13 @@ class BiEncoderRanker(torch.nn.Module):
         torch.save(model_to_save.state_dict(), output_model_file)
         model_to_save.config.to_json_file(output_config_file)
 
-    def get_optimizer(self, optim_states=None, saved_optim_type=None):
-        return get_bert_optimizer(
-            [self.model],
-            self.params["type_optimization"],
-            self.params["learning_rate"],
-            fp16=self.params.get("fp16"),
-        )
+    # def get_optimizer(self, optim_states=None, saved_optim_type=None):
+    #     return get_bert_optimizer(
+    #         [self.model],
+    #         self.params["type_optimization"],
+    #         self.params["learning_rate"],
+    #         fp16=self.params.get("fp16"),
+    #     )
  
     def encode_context(
         self, cands, gold_mention_bounds=None, gold_mention_bounds_mask=None,
